@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1,
+                   maximum-scale=1,
+                   viewport-fit=cover">
+
+    <meta name="theme-color" content="#0b0b0d">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DualVault">
+
+    <link rel="manifest" href="manifest.json">
+
+    <title>DualVault</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- LOCK SCREEN -->
+
+    <section id="lockScreen" class="screen">
+
+        <div class="logo">🔐</div>
+
+        <h1>DualVault</h1>
+
+        <p class="muted">
+            Защищённое локальное хранилище
+        </p>
+
+        <div id="setupBlock" class="card hidden">
+
+            <h2>Первоначальная настройка</h2>
+
+            <p class="muted">
+                Создай два разных PIN-кода.
+                Каждый PIN открывает отдельное пространство.
+            </p>
+
+            <label>
+                PIN пространства 1
+                <input
+                    id="setupPinA"
+                    type="password"
+                    inputmode="numeric"
+                    maxlength="12"
+                    autocomplete="off">
+            </label>
+
+            <label>
+                PIN пространства 2
+                <input
+                    id="setupPinB"
+                    type="password"
+                    inputmode="numeric"
+                    maxlength="12"
+                    autocomplete="off">
+            </label>
+
+            <button id="createVaults" class="primary">
+                Создать пространства
+            </button>
+
+        </div>
+
+        <div id="unlockBlock" class="card hidden">
+
+            <div class="segmented">
+
+                <button
+                    id="selectA"
+                    class="segment active">
+                    Пространство 1
+                </button>
+
+                <button
+                    id="selectB"
+                    class="segment">
+                    Пространство 2
+                </button>
+
+            </div>
+
+            <label>
+                PIN
+                <input
+                    id="unlockPin"
+                    type="password"
+                    inputmode="numeric"
+                    maxlength="12"
+                    autocomplete="off">
+            </label>
+
+            <button id="unlockButton" class="primary">
+                Разблокировать
+            </button>
+
+            <button id="biometricButton" class="secondary hidden">
+                Face ID / биометрия
+            </button>
+
+        </div>
+
+        <p id="lockMessage" class="message"></p>
+
+    </section>
+
+
+    <!-- VAULT -->
+
+    <section id="vaultScreen" class="screen hidden">
+
+        <header class="topbar">
+
+            <div>
+                <small>DualVault</small>
+                <h2 id="vaultTitle">Пространство 1</h2>
+            </div>
+
+            <button id="lockButton" class="iconButton">
+                🔒
+            </button>
+
+        </header>
+
+
+        <main>
+
+            <div class="actions">
+
+                <button id="cameraButton" class="action">
+                    📷
+                    <span>Камера</span>
+                </button>
+
+                <button id="fileButton" class="action">
+                    🖼️
+                    <span>Фото</span>
+                </button>
+
+                <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*,video/*"
+                    multiple
+                    hidden>
+
+            </div>
+
+
+            <div id="vaultEmpty" class="empty">
+
+                <div>🔒</div>
+
+                <h3>Пока пусто</h3>
+
+                <p>
+                    Сделай фотографию или импортируй файл.
+                </p>
+
+            </div>
+
+
+            <div id="itemsGrid" class="grid"></div>
+
+        </main>
+
+    </section>
+
+
+    <!-- CAMERA -->
+
+    <section id="cameraScreen" class="cameraScreen hidden">
+
+        <video
+            id="cameraPreview"
+            autoplay
+            playsinline
+            muted>
+        </video>
+
+        <div class="cameraOverlay">
+
+            <div class="gpsStatus">
+                <span id="gpsIndicator">●</span>
+                <span id="gpsText">
+                    Получение координат...
+                </span>
+            </div>
+
+            <button id="takePhoto" class="shutter">
+                ●
+            </button>
+
+            <button id="closeCamera" class="closeCamera">
+                ✕
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PREVIEW -->
+
+    <div id="previewModal" class="modal hidden">
+
+        <div class="modalContent">
+
+            <button id="closePreview" class="modalClose">
+                ✕
+            </button>
+
+            <img id="previewImage" class="previewImage">
+
+            <video
+                id="previewVideo"
+                class="previewVideo"
+                controls
+                playsinline>
+            </video>
+
+            <div id="previewInfo" class="previewInfo"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div id="toast" class="toast hidden"></div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
